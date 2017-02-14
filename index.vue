@@ -57,9 +57,9 @@
 
 <template>
   <div class="smart-select" :class="{inline: inline}">
-  <span v-for="item in selecteds">
-    <i @click="remove(item)"></i>{{ item[label.label] }}
-  </span>
+    <span v-for="item in selecteds">
+      <i @click="remove(item)"></i>{{ item[label.label] }}
+    </span>
     <input type="text" ref="hint"
            @focus="editing = true"
            @blur="blur"
@@ -82,121 +82,121 @@
 </template>
 
 <script>
-  export default {
-    name: 'smart-select',
+export default {
+  name: 'smart-select',
 
-    data() {
-      return {
-        hint: '',
-        editing: false,
-        index: 0,
-        selecteds: []
-      };
-    },
+  data() {
+    return {
+      hint: '',
+      editing: false,
+      index: 0,
+      selecteds: []
+    };
+  },
 
-    created() {
-      if (this.value !== null && typeof this.value !== 'undefined') {
-        const values = [].concat(this.value);
-        this.selecteds.push(...this.items.filter(item => values.includes(item[this.label.value])));
-      }
-    },
-
-    computed: {
-      filterItems() {
-        this.index = 0;
-        if (this.hint) {
-          const reg = new RegExp(this.hint, 'i');
-          return this.items.filter(item => reg.test(item[this.label.label]));
-        }
-        return this.items;
-      }
-    },
-
-    props: {
-      items: {
-        type: Array,
-        require: true
-      },
-
-      value: null,
-
-      multiple: {
-        type: Boolean,
-        default: false
-      },
-
-      label: {
-        type: Object,
-        default() {
-          return {
-            label: 'label',
-            value: 'value'
-          };
-        }
-      },
-
-      inline: {
-        type: Boolean,
-        default: true
-      }
-    },
-
-    methods: {
-      resetScroll() {
-        const itemRect = this.$refs.items[this.index].getBoundingClientRect();
-        const listRect = this.$refs.list.getBoundingClientRect();
-        if (itemRect.bottom > listRect.bottom) {
-          this.$refs.list.scrollTop += itemRect.bottom - listRect.bottom;
-        }
-        if (itemRect.top < listRect.top) {
-          this.$refs.list.scrollTop += itemRect.top - listRect.top;
-        }
-      },
-
-      hintUp() {
-        this.index = (this.index - 1 + this.filterItems.length) % this.filterItems.length;
-        this.resetScroll();
-      },
-
-      hintDown() {
-        this.index = (this.index + 1) % this.filterItems.length;
-        this.resetScroll();
-      },
-
-      removeHint() {
-        if (!this.hint.length) {
-          const item = this.selecteds.pop();
-          if (item) {
-            this.hint = `${item[this.label.label]} `;
-            this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
-          }
-        }
-      },
-
-      select(item) {
-        if (this.multiple) {
-          if (this.selecteds.indexOf(item) === -1) {
-            this.selecteds.push(item);
-            this.hint = '';
-            this.$emit('change', this.selecteds.map(i => i[this.label.value]));
-          }
-        } else {
-          this.selecteds = [item];
-          this.$emit('change', item[this.label.value]);
-          this.blur();
-        }
-      },
-
-      remove(item) {
-        this.selecteds.splice(this.selecteds.indexOf(item), 1);
-        this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
-      },
-
-      blur() {
-        this.hint = '';
-        this.editing = false;
-        this.$refs.hint.blur();
-      }
+  created() {
+    if (this.value !== null && typeof this.value !== 'undefined') {
+      const values = [].concat(this.value);
+      this.selecteds.push(...this.items.filter(item => values.includes(item[this.label.value])));
     }
-  };
+  },
+
+  computed: {
+    filterItems() {
+      this.index = 0;
+      if (this.hint) {
+        const reg = new RegExp(this.hint, 'i');
+        return this.items.filter(item => reg.test(item[this.label.label]));
+      }
+      return this.items;
+    }
+  },
+
+  props: {
+    items: {
+      type: Array,
+      require: true
+    },
+
+    value: null,
+
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+
+    label: {
+      type: Object,
+      default() {
+        return {
+          label: 'label',
+          value: 'value'
+        };
+      }
+    },
+
+    inline: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  methods: {
+    resetScroll() {
+      const itemRect = this.$refs.items[this.index].getBoundingClientRect();
+      const listRect = this.$refs.list.getBoundingClientRect();
+      if (itemRect.bottom > listRect.bottom) {
+        this.$refs.list.scrollTop += itemRect.bottom - listRect.bottom;
+      }
+      if (itemRect.top < listRect.top) {
+        this.$refs.list.scrollTop += itemRect.top - listRect.top;
+      }
+    },
+
+    hintUp() {
+      this.index = (this.index - 1 + this.filterItems.length) % this.filterItems.length;
+      this.resetScroll();
+    },
+
+    hintDown() {
+      this.index = (this.index + 1) % this.filterItems.length;
+      this.resetScroll();
+    },
+
+    removeHint() {
+      if (!this.hint.length) {
+        const item = this.selecteds.pop();
+        if (item) {
+          this.hint = `${item[this.label.label]} `;
+          this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
+        }
+      }
+    },
+
+    select(item) {
+      if (this.multiple) {
+        if (this.selecteds.indexOf(item) === -1) {
+          this.selecteds.push(item);
+          this.hint = '';
+          this.$emit('change', this.selecteds.map(i => i[this.label.value]));
+        }
+      } else {
+        this.selecteds = [item];
+        this.$emit('change', item[this.label.value]);
+        this.blur();
+      }
+    },
+
+    remove(item) {
+      this.selecteds.splice(this.selecteds.indexOf(item), 1);
+      this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
+    },
+
+    blur() {
+      this.hint = '';
+      this.editing = false;
+      this.$refs.hint.blur();
+    }
+  }
+};
 </script>
