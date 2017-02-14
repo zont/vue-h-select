@@ -1,0 +1,54 @@
+{
+  "name": "vue-h-select",
+  "version": "0.0.1",
+  "description": "Smart select for Vue 2",
+  "main": "index.vue",
+  "keywords": [
+    "vue",
+    "select",
+    "smart",
+    "multiple",
+    "tags"
+  ],
+  "scripts": {
+    "lint": "npm run lint:js -s & npm run lint:css -s",
+    "lint:js": "eslint index.vue",
+    "lint:css": "stylelint index.vue",
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text-summary",
+      "html"
+    ]
+  },
+  "author": "Alexander Zonov",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-jest": "^18.0.0",
+    "babel-preset-es2015": "^6.22.0",
+    "eslint": "^3.15.0",
+    "eslint-plugin-vue": "^2.0.1",
+    "jest": "^18.1.0",
+    "stylelint": "^7.8.0",
+    "stylelint-config-standard": "^16.0.0",
+    "stylelint-processor-html": "^1.0.0",
+    "vue": "^2.1.10"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zont/vue-h-select"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
