@@ -64,7 +64,7 @@
            @focus="editing = true"
            @blur="blur"
            @keydown.delete="removeHint"
-           @keydown.27.prevent="blur"
+           @keydown.esc.prevent="blur"
            @keydown.up.prevent="hintUp"
            @keydown.down.prevent="hintDown"
            @keydown.enter.prevent="select(filterItems[index])"
