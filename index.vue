@@ -178,6 +178,7 @@ export default {
         if (this.selecteds.indexOf(item) === -1) {
           this.selecteds.push(item);
           this.hint = '';
+          this.preventBlurOnce = true;
           this.$emit('change', this.selecteds.map(i => i[this.label.value]));
         }
       } else {
@@ -193,6 +194,11 @@ export default {
     },
 
     blur() {
+      if (this.preventBlurOnce) {
+        this.preventBlurOnce = false;
+        this.$refs.hint.focus();
+        return;
+      }
       this.hint = '';
       this.editing = false;
       this.$refs.hint.blur();
