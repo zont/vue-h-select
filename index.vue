@@ -94,13 +94,6 @@ export default {
     };
   },
 
-  created() {
-    if (this.value !== null && typeof this.value !== 'undefined') {
-      const values = [].concat(this.value);
-      this.selecteds.push(...this.items.filter(item => values.includes(item[this.label.value])));
-    }
-  },
-
   computed: {
     filterItems() {
       this.index = 0;
@@ -202,6 +195,18 @@ export default {
       this.hint = '';
       this.editing = false;
       this.$refs.hint.blur();
+    }
+  },
+
+  watch: {
+    value: {
+      immediate: true,
+      handler() {
+        if (this.value !== null && typeof this.value !== 'undefined') {
+          const values = [].concat(this.value);
+          this.selecteds.push(...this.items.filter(item => values.includes(item[this.label.value])));
+        }
+      }
     }
   }
 };
