@@ -204,7 +204,7 @@ export default {
       handler() {
         if (this.value !== null && typeof this.value !== 'undefined') {
           const values = [].concat(this.value);
-          this.selecteds.push(...this.items.filter(item => values.includes(item[this.label.value])));
+          this.selecteds = this.items.filter(item => values.includes(item[this.label.value]));
         }
       }
     }
