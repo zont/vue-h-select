@@ -60,7 +60,7 @@
     <span v-for="item in selecteds">
       <i @click="remove(item)"></i>{{ item[label.label] }}
     </span>
-    <input type="text" ref="hint"
+    <input type="text" ref="hint" :tabindex="tabindex"
            @focus="editing = true"
            @blur="blur"
            @keydown.delete="removeHint"
@@ -131,6 +131,11 @@ export default {
     inline: {
       type: Boolean,
       default: true
+    },
+
+    tabindex: {
+      type: Number,
+      default: 0
     }
   },
 
