@@ -30,6 +30,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    left: 0;
     top: 100%;
     position: absolute;
     background-color: #fff;
