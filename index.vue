@@ -64,11 +64,11 @@
     <input type="text" ref="hint" :tabindex="tabindex"
            @focus="editing = true"
            @blur="blur"
-           @keydown.delete="removeHint"
-           @keydown.esc.prevent="blur"
-           @keydown.up.prevent="hintUp"
-           @keydown.down.prevent="hintDown"
-           @keydown.enter.prevent="select(filterItems[index])"
+           @keyup.delete="removeHint"
+           @keyup.esc.prevent="blur"
+           @keyup.up.prevent="hintUp"
+           @keyup.down.prevent="hintDown"
+           @keyup.enter.prevent="select(filterItems[index])"
            v-model="hint"/>
     <ul v-show="editing" ref="list">
       <li ref="items"
