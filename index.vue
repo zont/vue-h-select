@@ -114,6 +114,7 @@ export default {
       }
 
       return this.items
+        .slice()
         .sort(byKey(this.label.label));
     }
   },
