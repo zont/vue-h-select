@@ -83,6 +83,14 @@
 </template>
 
 <script>
+const byKey = key => (a, b) => {
+  return a[key] < b[key]
+    ? -1
+    : a[key] === b[key]
+      ? 0
+      : 1;
+};
+
 export default {
   name: 'smart-select',
 
@@ -100,9 +108,13 @@ export default {
       this.index = 0;
       if (this.hint) {
         const reg = new RegExp(this.hint, 'i');
-        return this.items.filter(item => reg.test(item[this.label.label]));
+        return this.items
+          .filter(item => reg.test(item[this.label.label]))
+          .sort(byKey(this.label.label));
       }
-      return this.items;
+
+      return this.items
+        .sort(byKey(this.label.label));
     }
   },
 
