@@ -64,18 +64,18 @@
     <input type="text" ref="hint" :tabindex="tabindex"
            @focus="editing = true"
            @blur="blur"
-           @keyup.delete="removeHint"
-           @keyup.esc.prevent="blur"
-           @keyup.up.prevent="hintUp"
-           @keyup.down.prevent="hintDown"
-           @keyup.enter.prevent="select(filterItems[index])"
+           @keydown.delete="removeHint"
+           @keydown.esc.prevent="blur"
+           @keydown.up.prevent="hintUp"
+           @keydown.down.prevent="hintDown"
+           @keydown.enter.prevent="select(filterItems[index])"
            v-model="hint"/>
     <ul v-show="editing" ref="list">
       <li ref="items"
           :class="{active: i === index, selected: selecteds.includes(item)}"
           v-for="(item, i) in filterItems"
           @mouseenter="index = i"
-          @mousedown="select(item)">
+          @mousedown.prevent="select(item)">
         {{ item[label.label] }}
       </li>
     </ul>
