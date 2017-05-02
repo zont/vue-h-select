@@ -214,19 +214,23 @@ export default {
       this.hint = '';
       this.editing = false;
       this.$refs.hint.blur();
+    },
+
+    updateSelecteds() {
+      if (this.value !== null && typeof this.value !== 'undefined') {
+        const values = [].concat(this.value);
+        this.selecteds = this.items.filter(item => values.includes(item[this.label.value]));
+      }
     }
   },
 
   watch: {
     value: {
       immediate: true,
-      handler() {
-        if (this.value !== null && typeof this.value !== 'undefined') {
-          const values = [].concat(this.value);
-          this.selecteds = this.items.filter(item => values.includes(item[this.label.value]));
-        }
-      }
-    }
+      handler: 'updateSelecteds'
+    },
+
+    items: 'updateSelecteds'
   }
 };
 </script>
