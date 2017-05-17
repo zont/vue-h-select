@@ -57,7 +57,7 @@
 </style>
 
 <template>
-  <div class="smart-select" :class="{inline: inline}">
+  <div class="smart-select" :class="{inline: inline, multiple: multiple}">
     <span v-for="item in selecteds">
       <i @click="remove(item)"></i>{{ item[label.label] }}
     </span>

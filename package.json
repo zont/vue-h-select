@@ -1,6 +1,6 @@
 {
   "name": "vue-h-select",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Smart select for Vue 2",
   "main": "index.vue",
   "keywords": [
