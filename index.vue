@@ -187,12 +187,16 @@ export default {
 
     select(item) {
       if (this.multiple) {
-        if (this.selecteds.indexOf(item) === -1) {
+        const index = this.selecteds.indexOf(item);
+        if (index === -1) {
           this.selecteds.push(item);
-          this.hint = '';
-          this.preventBlurOnce = true;
-          this.$emit('change', this.selecteds.map(i => i[this.label.value]));
+        } else {
+          this.selecteds.splice(index, 1);
         }
+
+        this.hint = '';
+        this.preventBlurOnce = true;
+        this.$emit('change', this.selecteds.map(i => i[this.label.value]));
       } else {
         this.selecteds = [item];
         this.$emit('change', item[this.label.value]);
