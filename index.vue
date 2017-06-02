@@ -64,18 +64,18 @@
     <input type="text" ref="hint" :tabindex="tabindex"
            @focus="editing = true"
            @blur="blur"
-           @keydown.delete="removeHint"
-           @keydown.esc.prevent="blur"
-           @keydown.up.prevent="hintUp"
-           @keydown.down.prevent="hintDown"
-           @keydown.enter.prevent="select(filterItems[index])"
+           @keydown.delete.stop="removeHint"
+           @keydown.esc.prevent.stop="blur"
+           @keydown.up.prevent.stop="hintUp"
+           @keydown.down.prevent.stop="hintDown"
+           @keydown.enter.prevent.stop="select(filterItems[index])"
            v-model="hint"/>
     <ul v-show="editing" ref="list">
       <li ref="items"
           :class="{active: i === index, selected: selecteds.includes(item)}"
           v-for="(item, i) in filterItems"
-          @mouseenter="index = i"
-          @mousedown.prevent="select(item)">
+          @mouseenter.stop.prevent="index = i"
+          @mousedown.stop.prevent="select(item)">
         {{ item[label.label] }}
       </li>
     </ul>
@@ -195,7 +195,6 @@ export default {
         }
 
         this.hint = '';
-        this.preventBlurOnce = true;
         this.$emit('change', this.selecteds.map(i => i[this.label.value]));
       } else {
         this.selecteds = [item];
@@ -210,11 +209,6 @@ export default {
     },
 
     blur() {
-      if (this.preventBlurOnce) {
-        this.preventBlurOnce = false;
-        this.$refs.hint.focus();
-        return;
-      }
       this.hint = '';
       this.editing = false;
       this.$refs.hint.blur();
