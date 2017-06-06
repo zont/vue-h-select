@@ -132,6 +132,11 @@ export default {
       default: false
     },
 
+    closeOnSelect: {
+      type: Boolean,
+      default: false
+    },
+
     label: {
       type: Object,
       default() {
@@ -196,6 +201,9 @@ export default {
 
         this.hint = '';
         this.$emit('change', this.selecteds.map(i => i[this.label.value]));
+        if (this.closeOnSelect) {
+          this.blur();
+        }
       } else {
         this.selecteds = [item];
         this.$emit('change', item[this.label.value]);
