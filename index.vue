@@ -223,8 +223,15 @@ export default {
     },
 
     updateSelecteds() {
-      const values = this.value !== null ? [].concat(this.value) : [];
-      this.selecteds = this.items.filter(item => values.includes(item[this.label.value]));
+      let values = this.value !== null ? [].concat(this.value) : [];
+      this.selecteds = this.items.filter(item => {
+        if (values.includes(item[this.label.value])) {
+          values = values.filter(v => v !== item[this.label.value]);
+          return true;
+        }
+
+        return false;
+      });
     }
   },
 
