@@ -27,7 +27,7 @@
   }
 
   .smart-select ul {
-    width: 100%;
+    min-width: 100%;
     margin: 0;
     padding: 0;
     left: 0;
