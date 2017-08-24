@@ -68,14 +68,14 @@
            @keydown.esc.prevent.stop="blur"
            @keydown.up.prevent.stop="hintUp"
            @keydown.down.prevent.stop="hintDown"
-           @keydown.enter.prevent.stop="select(filterItems[index])"
+           @keydown.enter.prevent.stop="select(filterItems[index], $event)"
            v-model="hint"/>
     <ul v-show="editing" ref="list">
       <li ref="items"
           :class="{active: i === index, selected: selecteds.includes(item)}"
           v-for="(item, i) in filterItems"
           @mouseenter.stop.prevent="index = i"
-          @mousedown.stop.prevent="select(item)">
+          @mousedown.stop.prevent="select(item, $event)">
         {{ item[label.label] }}
       </li>
     </ul>
@@ -190,7 +190,7 @@ export default {
       }
     },
 
-    select(item) {
+    select(item, e) {
       if (this.multiple) {
         const index = this.selecteds.indexOf(item);
         if (index === -1) {
@@ -199,9 +199,8 @@ export default {
           this.selecteds.splice(index, 1);
         }
 
-        this.hint = '';
         this.$emit('change', this.selecteds.map(i => i[this.label.value]));
-        if (this.closeOnSelect) {
+        if (this.closeOnSelect && !e.ctrlKey) {
           this.blur();
         }
       } else {
