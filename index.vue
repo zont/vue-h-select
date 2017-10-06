@@ -185,7 +185,7 @@ export default {
         const item = this.selecteds.pop();
         if (item) {
           this.hint = `${item[this.label.label]} `;
-          this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
+          this._emit(this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
         }
       }
     },
@@ -199,20 +199,20 @@ export default {
           this.selecteds.splice(index, 1);
         }
 
-        this.$emit('change', this.selecteds.map(i => i[this.label.value]));
+        this._emit(this.selecteds.map(i => i[this.label.value]));
         if (this.closeOnSelect && !e.ctrlKey) {
           this.blur();
         }
       } else {
         this.selecteds = [item];
-        this.$emit('change', item[this.label.value]);
+        this._emit(item[this.label.value]);
         this.blur();
       }
     },
 
     remove(item) {
       this.selecteds.splice(this.selecteds.indexOf(item), 1);
-      this.$emit('change', this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
+      this._emit(this.selecteds.length ? this.selecteds.map(i => i[this.label.value]) : null);
     },
 
     blur() {
@@ -231,6 +231,11 @@ export default {
 
         return false;
       });
+    },
+
+    _emit(result) {
+      this.$emit('input', result);
+      this.$emit('change', result);
     }
   },
 
