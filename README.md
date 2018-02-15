@@ -21,14 +21,14 @@ import smartSelect from 'vue-h-select';
 export default {
   template: `
     <div>
-      <smart-select :items="options" :value="value" @change="value = $event">
+      <smart-select :items="options" v-model="value" multiple>
     </div>
   `,
-  
+
   components: {
     smartSelect
   },
-  
+
   data() {
     return {
       value: 2,
